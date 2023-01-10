@@ -6,10 +6,14 @@ import { AppService } from './app.service';;
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
 import { DatabaseModule } from './database/database.module';
+import config from './config';
+
+import { enviroments } from './enviroments'
 @Module({
   imports: [ 
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: enviroments[process.env.NODE_ENV] || '.env',
+      load: [ config ],
       isGlobal: true,
     }),
     HttpModule, UsersModule, ProductsModule, DatabaseModule ],
